@@ -33,7 +33,8 @@ class XGestureDetector extends StatefulWidget {
       this.onLongPressMove,
       this.onLongPressEnd,
       this.behavior = HitTestBehavior.deferToChild,
-      this.longPressMaximumRangeAllowed = 25});
+      this.longPressMaximumRangeAllowed = 25,
+      this.supportTouch = false});
 
   /// The widget below this widget in the tree.
   ///
@@ -107,6 +108,10 @@ class XGestureDetector extends StatefulWidget {
   /// default: distanceSquared =  25
   final int longPressMaximumRangeAllowed;
 
+  // Disables move-related listeners and events
+  // Allows touch events to be detected properly
+  final bool supportTouch;
+
   @override
   _XGestureDetectorState createState() => _XGestureDetectorState();
 }
@@ -135,7 +140,7 @@ class _XGestureDetectorState extends State<XGestureDetector> {
       child: widget.child,
       onPointerDown: onPointerDown,
       onPointerUp: onPointerUp,
-      onPointerMove: onPointerMove,
+      onPointerMove: widget.supportTouch ? null : onPointerMove,
       onPointerCancel: onPointerUp,
       onPointerSignal: onPointerSignal,
     );

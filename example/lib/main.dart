@@ -16,34 +16,61 @@ class XGestureExample extends StatefulWidget {
 
 class _XGestureExampleState extends State<XGestureExample> {
   String lastEventName = 'Tap on screen';
+  bool supportTouch = false;
 
   @override
   Widget build(BuildContext context) {
-    return XGestureDetector(
-      child: Material(
-        child: Center(
-          child: Text(
-            lastEventName,
-            style: TextStyle(fontSize: 30),
+    return Column(
+      children: [
+        Expanded(
+          child: XGestureDetector(
+            child: Material(
+              child: Center(
+                child: Text(
+                  lastEventName,
+                  style: TextStyle(fontSize: 30),
+                ),
+              ),
+            ),
+            doubleTapTimeConsider: 300,
+            longPressTimeConsider: 350,
+            onTap: onTap,
+            onDoubleTap: onDoubleTap,
+            onLongPress: onLongPress,
+            onLongPressEnd: onLongPressEnd,
+            onMoveStart: onMoveStart,
+            onMoveEnd: onMoveEnd,
+            onMoveUpdate: onMoveUpdate,
+            onScaleStart: onScaleStart,
+            onScaleUpdate: onScaleUpdate,
+            onScaleEnd: onScaleEnd,
+            bypassTapEventOnDoubleTap: false,
+            onLongPressMove: onLongPressMove,
+            onScrollEvent: onScrollEvent,
+            longPressMaximumRangeAllowed: 25,
+            supportTouch: supportTouch,
           ),
         ),
-      ),
-      doubleTapTimeConsider: 300,
-      longPressTimeConsider: 350,
-      onTap: onTap,
-      onDoubleTap: onDoubleTap,
-      onLongPress: onLongPress,
-      onLongPressEnd: onLongPressEnd,
-      onMoveStart: onMoveStart,
-      onMoveEnd: onMoveEnd,
-      onMoveUpdate: onMoveUpdate,
-      onScaleStart: onScaleStart,
-      onScaleUpdate: onScaleUpdate,
-      onScaleEnd: onScaleEnd,
-      bypassTapEventOnDoubleTap: false,
-      onLongPressMove: onLongPressMove,
-      onScrollEvent: onScrollEvent,
-      longPressMaximumRangeAllowed: 25,
+        Container(
+          height: 50,
+          child: Material(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Support touch: '),
+                Checkbox(
+                  value: supportTouch,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      supportTouch = value!;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 
