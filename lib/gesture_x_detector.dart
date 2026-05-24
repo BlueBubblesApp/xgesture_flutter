@@ -187,6 +187,8 @@ class _XGestureDetectorState extends State<XGestureDetector> {
         }
         break;
       case _GestureState.PointerDown:
+       if (event.localDelta.distanceSquared == 0) break;
+
         switch2MoveStartState(touch, event);
         break;
       case _GestureState.MoveStart:
